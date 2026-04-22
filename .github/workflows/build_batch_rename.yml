@@ -39,8 +39,8 @@ jobs:
       run: |
         # 切换到对应的目录
         cd "demo-3-自动化脚本-文件批量重命名"
-        # 执行 PyInstaller 打包，强制塞入 gradio 和 safehttpx 静态资产
-        pyinstaller -F --collect-all gradio --collect-all safehttpx batch_rename_ui.py
+        # 执行 PyInstaller 打包，强制塞入所有的关联静态资产
+        pyinstaller -F --collect-all gradio --collect-all safehttpx --collect-all groovy batch_rename_ui.py
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v4
