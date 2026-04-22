@@ -27,7 +27,8 @@ downloads/
 downloads-*/
 downloads_concurrent/
 playwright_data/
-
+demo-3-自动化脚本-文件批量重命名/batch_rename_ui.build/
+demo-3-自动化脚本-文件批量重命名/batch_rename_ui.dist/
 # ==============================
 # IDE 和操作系统配置
 # ==============================
