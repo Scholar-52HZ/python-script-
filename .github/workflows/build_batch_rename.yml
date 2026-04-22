@@ -13,6 +13,8 @@ jobs:
     name: Build on ${{ matrix.os }}
     # 策略矩阵：指示 GitHub 同时启动3台不同系统的服务器进行打包
     runs-on: ${{ matrix.os }}
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     strategy:
       matrix:
         os: [windows-latest, macos-latest, ubuntu-latest]
