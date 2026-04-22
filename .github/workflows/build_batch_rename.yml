@@ -1,0 +1,52 @@
+name: Build Cross-Platform Executables
+
+on:
+  # 允许您在 GitHub 网页端的 Actions 标签页中手动单击运行
+  workflow_dispatch: 
+  # 当您向仓库推送一个带有 'v' 开头的标签 (如 v1.0.0) 时自动触发
+  push:
+    tags:
+      - 'v*' 
+
+jobs:
+  build:
+    name: Build on ${{ matrix.os }}
+    # 策略矩阵：指示 GitHub 同时启动3台不同系统的服务器进行打包
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install gradio pyinstaller
+
+    - name: Build with PyInstaller
+      # 统一使用 bash，防止不同系统的路径斜杠导致问题
+      shell: bash
+      run: |
+        # 切换到对应的目录
+        cd "demo-3-自动化脚本-文件批量重命名"
+        # 执行 PyInstaller 打包，强制塞入 gradio 静态资产
+        pyinstaller -F --collect-all gradio batch_rename_ui.py
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        # 打包产存放在 Actions 控制台的压缩包名称
+        name: BatchRenameTool-${{ matrix.os }}
+        path: |
+          demo-3-自动化脚本-文件批量重命名/dist/batch_rename_ui.exe
+          demo-3-自动化脚本-文件批量重命名/dist/batch_rename_ui
+        # 忽略因为不同系统找不到对应扩展名文件的报错（比如 Windows 找不到无后缀的Mac包）
+        if-no-files-found: ignore

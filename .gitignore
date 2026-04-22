@@ -1,0 +1,42 @@
+# ==============================
+# Python 相关忽略配置
+# ==============================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 虚拟环境 (Virtual Environments)
+venv/
+env/
+.venv/
+
+# 环境变量敏感文件 (保存账号密码等信息)
+.env
+.env.local
+
+# PyInstaller 和打包相关 (打包生成的临时文件夹和成品)
+build/
+dist/
+*.egg-info/
+*.spec
+
+# ==============================
+# 您的项目专属配置 (避免把大量的图片/数据传上网)
+# ==============================
+downloads/
+downloads-*/
+downloads_concurrent/
+playwright_data/
+
+# ==============================
+# IDE 和操作系统配置
+# ==============================
+# VSCode
+.vscode/
+# Pycharm
+.idea/
+# Windows OS
+Thumbs.db
+desktop.ini
+# macOS
+.DS_Store
